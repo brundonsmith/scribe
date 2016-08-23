@@ -1,17 +1,46 @@
 grammar Scribe;
 
-scribe: 'foo ' ID;
+scribe
+  : STATEMENT (','' '?STATEMENT)*
+  ;
 
-PROPER_NOUN: 'foo';
+STATEMENT
+  : EVENT_BINDING
+  | IMPERATIVE
+  ;
+
 PRONOUN: 'foo';
-ENTITY_TYPE: 'foo';
-PROPERTY: 'foo';
-LITERAL: 'foo';
+
+EVENT_BINDING
+  : 'when ' EVENT ', ' IMPERATIVE
+  | IMPERATIVE 'until' EVENT
+  | 'when ' CONDITIONAL ', ' IMPERATIVE
+  | IMPERATIVE ' until ' CONDITIONAL
+  ;
+
+EVENT
+  : SET EVENT_NAME
+  | SET EVENT_NAME CONDITIONAL
+  ;
+
+EVENT_NAME
+  : ('a'..'z'|'A'..'Z')+
+  ;
+
+IMPERATIVE
+  : IMPERATIVE_NAME
+  | SET IMPERATIVE_NAME
+  | SET IMPERATIVE_NAME SET
+  ;
+
+IMPERATIVE_NAME
+  : ('a'..'z'|'A'..'Z')+
+  ;
 
 SET
   : PROPER_NOUN
   | PRONOUN
-  | SET SET_OPERATION SET
+  | 'all ' SET SET_OPERATION SET
   | PLURAL
   | PLURAL CONDITIONAL
   | PLURAL SORT
@@ -22,8 +51,8 @@ SET
   ;
 
 SET_OPERATION
-  : 'and'
-  | 'except'
+  : ' and '
+  | ' except '
   ;
 
 PLURAL
@@ -33,29 +62,46 @@ PLURAL
   ;
 
 CONDITIONAL
-  : PROPERTY ' is ' VALUE
-  | PROPERTY ' is ' COMPARATOR VALUE
+  : SET PROPERTY_NAME ' is ' VALUE
+  | SET PROPERTY_NAME ' is ' COMPARATOR VALUE
   ;
 
 VALUE
   : LITERAL
-  | PROPERTY
+  | SET PROPERTY_NAME
+  ;
+
+PROPERTY_NAME
+  : ('a'..'z'|'A'..'Z')+
+  ;
+
+ENTITY_TYPE
+  : ('a'..'z'|'A'..'Z')+
+  ;
+
+PROPER_NOUN
+  : ('a'..'z'|'A'..'Z')+
+  ;
+
+LITERAL
+  : '"'.*'"'
+  | [0-9]+
   ;
 
 COMPARATOR
-  : 'greater than'
-  | 'more than'
-  | 'less than'
-  | 'lower than'
-  | 'equal to'
+  : ' greater than '
+  | ' more than '
+  | ' less than '
+  | ' lower than '
+  | ' equal to '
   ;
 
 SORT
-  : 'sorted by ' PROPERTY
-  | 'sorted by ' PROPERTY SORT_DIRECTION
+  : 'sorted by ' PROPERTY_NAME
+  | 'sorted by ' PROPERTY_NAME SORT_DIRECTION
   ;
 
 SORT_DIRECTION
-  : 'ascending'
-  | 'descending'
+  : ' ascending '
+  | ' descending '
   ;

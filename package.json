@@ -5,7 +5,8 @@
   "main": "bin/scribe.js",
   "scripts": {
     "start": "node bin/scribe.js",
-    "postinstall": "antlr4 -Dlanguage=JavaScript grammar/*.g4"
+    "postinstall": "npm run antlr",
+    "antlr": "antlr4 -Dlanguage=JavaScript -long-messages grammar/*.g4"
   },
   "keywords": [
     "scribe",
@@ -14,6 +15,10 @@
   ],
   "author": "Brandon Smith",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:brundonsmith/scribe.git"
+  },
   "devDependencies": {
     "antlr4-cli": "^4.5.3",
     "antlr4": "^4.5.3"
