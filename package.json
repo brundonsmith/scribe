@@ -1,0 +1,21 @@
+{
+  "name": "scribe",
+  "version": "0.1.0",
+  "description": "Javascript transpiler for the Scribe language",
+  "main": "bin/scribe.js",
+  "scripts": {
+    "start": "node bin/scribe.js",
+    "postinstall": "antlr4 -Dlanguage=JavaScript grammar/*.g4"
+  },
+  "keywords": [
+    "scribe",
+    "language",
+    "transpiler"
+  ],
+  "author": "Brandon Smith",
+  "license": "ISC",
+  "devDependencies": {
+    "antlr4-cli": "^4.5.3",
+    "antlr4": "^4.5.3"
+  }
+}

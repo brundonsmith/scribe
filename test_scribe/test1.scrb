@@ -1,0 +1,2 @@
+when Computer receives get request whose route is "/",
+it sends page whose name is "index" with 5 posts sorted by post date
