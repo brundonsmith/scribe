@@ -1,0 +1,24 @@
+
+define type named Entity (
+  has text named name,
+  has number named health,
+  has number named maxHealth
+)
+
+define type named Player (
+  is Entity
+
+)
+
+define type named Enemy (
+  is Entity
+
+)
+
+define formula named isDead of Entity named e ( e's health < 1 )
+
+define script named myStory with text named name1, text named name2 (
+  say("Hello, " name1 "! My name is " name2 "."),
+)
+
+do myStory("Bob", "Jane")
